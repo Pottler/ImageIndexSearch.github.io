@@ -1,41 +1,150 @@
-function showRegisterForm() {
-    document.getElementById('login-form').style.display = 'none';
-    document.getElementById('register-form').style.display = 'block';
-    document.getElementById('form-title').innerHTML = 'Registro';
-    document.getElementById('error-message').innerHTML = '';
+var searchQuery = '';
+var page = 1;
+var perPage = 10;
+
+function handleSearch(event) {
+  if (event.key === 'Enter') {
+    searchWallpapers();
   }
-  
-  function showLoginForm() {
-    document.getElementById('register-form').style.display = 'none';
-    document.getElementById('login-form').style.display = 'block';
-    document.getElementById('form-title').innerHTML = 'Iniciar sesión';
-    document.getElementById('error-message').innerHTML = '';
+}
+
+function showScrollToTopButton() {
+  var scrollToTopButton = document.getElementById('scroll-to-top-button');
+  if (scrollToTopButton) {
+    scrollToTopButton.style.display = 'block';
   }
-  
-  function register() {
-    var username = document.getElementById('register-username').value;
-    var password = document.getElementById('register-password').value;
-  
-    if (username && password) {
-      localStorage.setItem('username', username);
-      localStorage.setItem('password', password);
-      showLoginForm();
-    } else {
-      document.getElementById('error-message').innerHTML = 'Por favor, complete todos los campos.';
-    }
+}
+
+function hideScrollToTopButton() {
+  var scrollToTopButton = document.getElementById('scroll-to-top-button');
+  if (scrollToTopButton) {
+    scrollToTopButton.style.display = 'none';
   }
-  
-  function login() {
-    var username = document.getElementById('login-username').value;
-    var password = document.getElementById('login-password').value;
-    var savedUsername = localStorage.getItem('username');
-    var savedPassword = localStorage.getItem('password');
-  
-    if (username === savedUsername && password === savedPassword) {
-      // Redireccionar a la página después de iniciar sesión exitosamente
-      window.location.href = '../index.html'; // Reemplaza 'pagina-web.html' con la URL de la página que deseas abrir después del inicio de sesión exitoso
-    } else {
-      document.getElementById('error-message').innerHTML = 'Usuario o contraseña incorrectos.';
-    }
-  }
-  
+}
+
+function searchWallpapers() {
+  searchQuery = document.getElementById("search-input").value;
+  page = 1;
+  var apiUrl =
+    "https://api.unsplash.com/search/photos?query=" +
+    searchQuery +
+    "&page=" +
+    page +
+    "&per_page=" +
+    perPage +
+    "&client_id=t-qcfpjs6jCTALtxy9A1sO-rrz08bsg7UWgs82eAbaQ";
+
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      var results = data.results;
+      var imageContainer = document.getElementById("results");
+      var noResultsElement = document.querySelector(".no-results");
+      var loadMoreButton = document.querySelector(".load-more");
+
+      imageContainer.innerHTML = '';
+
+      if (results.length > 0) {
+        showScrollToTopButton();
+        for (var i = 0; i < results.length; i++) {
+          var imageUrl = results[i].urls.regular;
+          var imageElement = document.createElement("img");
+          imageElement.src = imageUrl;
+          imageElement.className = "image";
+          imageElement.addEventListener('click', createImageClickHandler(imageUrl));
+          imageContainer.appendChild(imageElement);
+        }
+
+        noResultsElement.style.display = "none";
+
+        if (results.length === perPage) {
+          loadMoreButton.style.display = "block";
+        } else {
+          loadMoreButton.style.display = "none";
+        }
+      } else {
+        hideScrollToTopButton();
+        noResultsElement.style.display = "block";
+        loadMoreButton.style.display = "none";
+      }
+    })
+    .catch((error) => {
+      console.log("Error al realizar la búsqueda:", error);
+    });
+}
+
+function loadMoreResults() {
+  page++;
+  var apiUrl =
+    "https://api.unsplash.com/search/photos?query=" +
+    searchQuery +
+    "&page=" +
+    page +
+    "&per_page=" +
+    perPage +
+    "&client_id=t-qcfpjs6jCTALtxy9A1sO-rrz08bsg7UWgs82eAbaQ";
+
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      var results = data.results;
+      var imageContainer = document.getElementById("results");
+      var loadMoreButton = document.querySelector(".load-more");
+
+      if (results.length > 0) {
+        for (var i = 0; i < results.length; i++) {
+          var imageUrl = results[i].urls.regular;
+          var imageElement = document.createElement("img");
+          imageElement.src = imageUrl;
+          imageElement.className = "image";
+          imageElement.addEventListener('click', createImageClickHandler(imageUrl)); // Use closure
+          imageContainer.appendChild(imageElement);
+        }
+
+        if (results.length === perPage) {
+          loadMoreButton.style.display = "block";
+        } else {
+          loadMoreButton.style.display = "none";
+        }
+      } else {
+        loadMoreButton.style.display = "none";
+      }
+    })
+    .catch((error) => {
+      console.log("Error al cargar más resultados:", error);
+    });
+}
+
+function createImageClickHandler(imageUrl) {
+  return function () {
+    openImage(imageUrl);
+  };
+}
+
+function openImage(imageUrl) {
+  var overlay = document.getElementById('overlay');
+  var fullImageContainer = document.getElementById('full-image-container');
+  var fullImageElement = document.createElement('img');
+  fullImageElement.src = imageUrl;
+  fullImageElement.className = 'full-image';
+  fullImageContainer.innerHTML = '';
+  fullImageContainer.appendChild(fullImageElement);
+  overlay.style.display = 'flex';
+}
+
+function closeImage() {
+  var overlay = document.getElementById('overlay');
+  overlay.style.display = 'none';
+}
+
+var overlay = document.getElementById('overlay');
+overlay.onclick = function () {
+  closeImage();
+};
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}

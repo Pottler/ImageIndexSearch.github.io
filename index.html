@@ -1,39 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Registro e inicio de sesión</title>
+  <title>TikTok Style Image Page</title>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
-  <div class="container">
-    <h1 id="form-title">Iniciar sesión</h1>
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Buscar fondos de pantalla" onkeydown="handleSearch(event)">
+    <button onclick="searchWallpapers()">Buscar</button>
+  </div>
 
-    <div id="login-form" class="form">
-      <input type="text" id="login-username" placeholder="Usuario" />
-      <input type="password" id="login-password" placeholder="Contraseña" />
-      <button onclick="login()">Iniciar sesión</button>
+  <div class="image-container">
+    <span class="no-results" style="display: none;">No se encontraron resultados</span>
+    <div id="results"></div>
+    <button class="load-more" onclick="loadMoreResults()" style="display: none;">Cargar más resultados</button>
+  </div>
 
-      <div class="button-container">
-        <span>¿No tienes una cuenta?</span>
-        <span class="register-link" onclick="showRegisterForm()">Registrarse</span>
-      </div>
-    </div>
-
-    <div id="register-form" class="form" style="display: none;">
-      <h1>Registro</h1>
-      <input type="text" id="register-username" placeholder="Usuario" />
-      <input type="password" id="register-password" placeholder="Contraseña" />
-      <button onclick="register()">Registrarse</button>
-
-      <div class="button-container">
-        <span>¿Ya tienes una cuenta?</span>
-        <span class="register-link" onclick="showLoginForm()">Iniciar sesión</span>
-      </div>
-    </div>
-
-    <div id="error-message" class="error-message"></div>
+  <div id="overlay">
+    <div id="full-image-container"></div>
   </div>
 
   <script src="script.js"></script>
 </body>
+
 </html>
