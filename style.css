@@ -11,15 +11,8 @@ body {
   align-items: center;
   justify-content: center;
   background-color: #f7f7f7;
-  animation: gradientAnimation 10s ease infinite;
   transition: background-color 0.5s ease;
   overflow-y: auto;
-}
-
-@keyframes gradientAnimation {
-  0% { background-color: #ff0080; }
-  50% { background-color: #7928ca; }
-  100% { background-color: #ff0080; }
 }
 
 .search-container {
@@ -32,11 +25,8 @@ body {
 .search-container input[type="text"] {
   padding: 10px;
   margin-right: 10px;
-  border: none;
-  border-bottom: 2px solid #4caf50;
-  border-radius: 0;
-  font-size: 16px;
-  flex-grow: 1;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
 
 .search-container button {
@@ -53,13 +43,12 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 -5px;
 }
 
 .image-container .image {
-  flex: 0 0 calc(50% - 10px);
+  width: 200px;
   height: 200px;
-  margin: 5px;
+  margin: 10px;
   object-fit: cover;
   transition: opacity 0.5s ease;
   border-radius: 10px;
@@ -86,8 +75,8 @@ body {
 }
 
 #full-image-container {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 800px;
+  max-height: 600px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -99,26 +88,6 @@ body {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-}
-
-#scroll-to-top-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  display: none;
-  z-index: 999;
-}
-
-.load-more-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
 }
 
 .load-more {
@@ -136,35 +105,8 @@ body {
 }
 
 @media (max-width: 768px) {
-  .search-container {
-    flex-direction: column;
-    align-items: stretch;
-    margin-bottom: 10px;
-  }
-
-  .search-container input[type="text"] {
-    margin: 0;
-    margin-bottom: 10px;
-    width: 100%;
-    border-bottom: 2px solid #4caf50;
-    border-radius: 0;
-    font-size: 16px;
-  }
-
-  .image-container {
-    column-count: 2;
-    column-gap: 10px;
-    margin: 0;
-    padding: 0;
-  }
-
   .image-container .image {
     width: 100%;
     height: auto;
-    margin: 0 0 10px;
-  }
-
-  #scroll-to-top-button {
-    bottom: 70px;
   }
 }

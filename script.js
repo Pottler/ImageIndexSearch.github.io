@@ -5,7 +5,7 @@ var loadedResults = [];
 
 function handleSearch(event) {
   if (event.key === 'Enter') {
-    searchWallpapers();
+    searchPhotos();
   }
 }
 
@@ -23,7 +23,7 @@ function hideScrollToTopButton() {
   }
 }
 
-function searchWallpapers() {
+function searchPhotos() {
   searchQuery = document.getElementById("search-input").value;
   page = 1;
   loadedResults = [];
@@ -42,6 +42,7 @@ function searchWallpapers() {
       var results = data.results;
       var imageContainer = document.getElementById("results");
       var noResultsElement = document.querySelector(".no-results");
+      var loadMoreContainer = document.querySelector(".load-more-container");
       var loadMoreButton = document.querySelector(".load-more");
 
       imageContainer.innerHTML = '';
@@ -61,14 +62,16 @@ function searchWallpapers() {
         noResultsElement.style.display = "none";
 
         if (results.length === perPage) {
+          loadMoreContainer.style.display = "block";
           loadMoreButton.style.display = "block";
         } else {
+          loadMoreContainer.style.display = "none";
           loadMoreButton.style.display = "none";
         }
       } else {
         hideScrollToTopButton();
         noResultsElement.style.display = "block";
-        loadMoreButton.style.display = "none";
+        loadMoreContainer.style.display = "none";
       }
     })
     .catch((error) => {
@@ -76,7 +79,7 @@ function searchWallpapers() {
     });
 }
 
-function loadMoreResults() {
+function loadMorePhotos() {
   page++;
   var apiUrl =
     "https://api.unsplash.com/search/photos?query=" +
@@ -92,6 +95,7 @@ function loadMoreResults() {
     .then((data) => {
       var results = data.results;
       var imageContainer = document.getElementById("results");
+      var loadMoreContainer = document.querySelector(".load-more-container");
       var loadMoreButton = document.querySelector(".load-more");
 
       if (results.length > 0) {
@@ -108,11 +112,14 @@ function loadMoreResults() {
         }
 
         if (results.length === perPage) {
+          loadMoreContainer.style.display = "block";
           loadMoreButton.style.display = "block";
         } else {
+          loadMoreContainer.style.display = "none";
           loadMoreButton.style.display = "none";
         }
       } else {
+        loadMoreContainer.style.display = "none";
         loadMoreButton.style.display = "none";
       }
     })

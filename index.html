@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>ISI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscador de Fotos</title>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
   <div class="search-container">
-    <input type="text" id="search-input" placeholder="Buscar fondos de pantalla" onkeydown="handleSearch(event)">
-    <button onclick="searchWallpapers()">Buscar</button>
+    <input type="text" id="search-input" placeholder="Buscar fotos" onkeydown="handleSearch(event)">
+    <button onclick="searchPhotos()">Buscar</button>
   </div>
 
   <div class="image-container">
     <span class="no-results" style="display: none;">No se encontraron resultados</span>
     <div id="results"></div>
     <div class="load-more-container">
-      <button class="load-more" onclick="loadMoreResults()" style="display: none;">Cargar más resultados</button>
+      <button class="load-more" onclick="loadMorePhotos()" style="display: none;">Cargar más resultados</button>
     </div>
   </div>
 
@@ -23,8 +24,7 @@
     <div id="full-image-container"></div>
   </div>
 
-  <button id="scroll-to-top-button" onclick="scrollToTop()">Volver arriba</button>
-
   <script src="script.js"></script>
 </body>
+
 </html>
