@@ -138,4 +138,9 @@ body {
     flex: 0 0 100%;
     height: auto;
   }
+  
+  .load-more-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
