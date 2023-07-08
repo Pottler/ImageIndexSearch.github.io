@@ -126,12 +126,25 @@ body {
 }
 
 @media (max-width: 768px) {
-  .image-container {
-    max-width: 100%;
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 10px;
   }
-  
-  .image-container .image {
+
+  .search-container input[type="text"] {
+    margin: 0;
+    margin-bottom: 10px;
     width: 100%;
+  }
+
+  .image-container {
+    column-count: 2;
+    column-gap: 10px;
+  }
+
+  .image-container .image {
+    width: calc(50% - 5px);
     height: auto;
   }
 }
