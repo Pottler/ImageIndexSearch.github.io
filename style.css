@@ -1,13 +1,10 @@
 html, body {
-
   margin: 0;
   padding: 0;
   height: 100%;
-
 }
 
 body {
-
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
@@ -111,6 +108,7 @@ body {
   border-radius: 3px;
   cursor: pointer;
   display: none;
+  z-index: 999;
 }
 
 .load-more {
@@ -125,4 +123,15 @@ body {
 
 .load-more:hover {
   background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+  .image-container {
+    max-width: 100%;
+  }
+  
+  .image-container .image {
+    width: 100%;
+    height: auto;
+  }
 }
