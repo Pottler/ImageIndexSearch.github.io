@@ -34,6 +34,7 @@ body {
   margin-right: 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
+  flex-grow: 1;
 }
 
 .search-container button {
@@ -50,12 +51,13 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .image-container .image {
-  width: 200px;
+  flex: 0 0 calc(50% - 10px);
   height: 200px;
-  margin: 10px;
+  margin: 5px;
   object-fit: cover;
   transition: opacity 0.5s ease;
   border-radius: 10px;
@@ -126,25 +128,8 @@ body {
 }
 
 @media (max-width: 768px) {
-  .search-container {
-    flex-direction: column;
-    align-items: stretch;
-    margin-bottom: 10px;
-  }
-
-  .search-container input[type="text"] {
-    margin: 0;
-    margin-bottom: 10px;
-    width: 100%;
-  }
-
-  .image-container {
-    column-count: 2;
-    column-gap: 10px;
-  }
-
   .image-container .image {
-    width: calc(50% - 5px);
+    flex: 0 0 100%;
     height: auto;
   }
 }
