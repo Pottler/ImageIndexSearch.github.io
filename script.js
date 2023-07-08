@@ -1,6 +1,7 @@
 var searchQuery = '';
 var page = 1;
 var perPage = 10;
+var loadedResults = [];
 
 function handleSearch(event) {
   if (event.key === 'Enter') {
@@ -25,6 +26,7 @@ function hideScrollToTopButton() {
 function searchWallpapers() {
   searchQuery = document.getElementById("search-input").value;
   page = 1;
+  loadedResults = [];
   var apiUrl =
     "https://api.unsplash.com/search/photos?query=" +
     searchQuery +
@@ -53,6 +55,7 @@ function searchWallpapers() {
           imageElement.className = "image";
           imageElement.addEventListener('click', createImageClickHandler(imageUrl));
           imageContainer.appendChild(imageElement);
+          loadedResults.push(imageUrl);
         }
 
         noResultsElement.style.display = "none";
@@ -94,11 +97,14 @@ function loadMoreResults() {
       if (results.length > 0) {
         for (var i = 0; i < results.length; i++) {
           var imageUrl = results[i].urls.regular;
-          var imageElement = document.createElement("img");
-          imageElement.src = imageUrl;
-          imageElement.className = "image";
-          imageElement.addEventListener('click', createImageClickHandler(imageUrl)); // Use closure
-          imageContainer.appendChild(imageElement);
+          if (!loadedResults.includes(imageUrl)) {
+            var imageElement = document.createElement("img");
+            imageElement.src = imageUrl;
+            imageElement.className = "image";
+            imageElement.addEventListener('click', createImageClickHandler(imageUrl));
+            imageContainer.appendChild(imageElement);
+            loadedResults.push(imageUrl);
+          }
         }
 
         if (results.length === perPage) {
