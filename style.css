@@ -34,7 +34,6 @@ body {
   margin-right: 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
-  flex-grow: 1;
 }
 
 .search-container button {
@@ -68,6 +67,27 @@ body {
   font-size: 24px;
   color: #999;
   margin-top: 20px;
+}
+
+.load-more-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.load-more {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.load-more:hover {
+  background-color: #45a049;
 }
 
 #overlay {
@@ -111,20 +131,6 @@ body {
   cursor: pointer;
   display: none;
   z-index: 999;
-}
-
-.load-more {
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.load-more:hover {
-  background-color: #45a049;
 }
 
 @media (max-width: 768px) {
