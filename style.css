@@ -50,13 +50,12 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start;
 }
 
 .image-container .image {
-  flex: 0 0 calc(50% - 10px);
+  width: 200px;
   height: 200px;
-  margin: 5px;
+  margin: 10px;
   object-fit: cover;
   transition: opacity 0.5s ease;
   border-radius: 10px;
@@ -67,27 +66,6 @@ body {
   font-size: 24px;
   color: #999;
   margin-top: 20px;
-}
-
-.load-more-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.load-more {
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.load-more:hover {
-  background-color: #45a049;
 }
 
 #overlay {
@@ -133,14 +111,44 @@ body {
   z-index: 999;
 }
 
+.load-more {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.load-more:hover {
+  background-color: #45a049;
+}
+
 @media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 10px;
+  }
+
+  .search-container input[type="text"] {
+    margin: 0;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .image-container {
+    column-count: 2;
+    column-gap: 10px;
+  }
+
   .image-container .image {
-    flex: 0 0 100%;
+    width: calc(50% - 10px);
     height: auto;
   }
   
   .load-more-container {
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
   }
 }
