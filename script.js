@@ -64,6 +64,7 @@ function searchPhotos() {
         if (results.length === perPage) {
           loadMoreContainer.style.display = "block";
           loadMoreButton.style.display = "block";
+          loadMoreButton.addEventListener('click', loadMorePhotos);
         } else {
           loadMoreContainer.style.display = "none";
           loadMoreButton.style.display = "none";
